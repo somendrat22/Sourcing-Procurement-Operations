@@ -22,6 +22,7 @@ public class CompanyController {
 
     private  ProcurementCompanyService procurementCompanyService;
 
+
     @Autowired
     public CompanyController(ProcurementCompanyService procurementCompanyService){
         this.procurementCompanyService = procurementCompanyService;
@@ -40,6 +41,7 @@ public class CompanyController {
         ProcurementCompany procurementCompany = procurementCompanyService.registerProcurementCompany(procurementCompanyRegistrationDto,
                 companyRegCertificate,
                 companyLogo);
+
 
         return new ResponseEntity(procurementCompany, HttpStatus.CREATED);
     }

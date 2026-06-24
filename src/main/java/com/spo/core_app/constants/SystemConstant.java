@@ -8,4 +8,6 @@ public class SystemConstant {
     public static final Integer FILE_UPLOAD_RETRY_ATTEMPTS = 3;
     public static final String PROCUREMENT_COMPANY_DOC_BASE_PATH = "/procurementcompany/registration/docs";
     public static final String ATTACHMENT_ENTITY_NAME = "ATTACHMENT";
+    public static final String EMPLOYEE_ENTITY_NAME = "EMPLOYEE";
+    public static final String ROLE_ENTITY_NAME = "ROLE";
 }

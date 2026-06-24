@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SuperBuilder
 @Data
@@ -54,6 +55,9 @@ public class User extends GlobalRecord {
     private LocalDateTime lastLoginDate;
 
     private Boolean emailVerified;
+
+    @ManyToMany
+    private List<Role> roles;
 
     private Boolean mfaEnabled;
 }

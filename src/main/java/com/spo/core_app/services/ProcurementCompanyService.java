@@ -25,6 +25,7 @@ import java.util.List;
 public class ProcurementCompanyService {
 
     private CompanyAdapter companyAdapter;
+    private EmployeeService employeeService;
     private ProcurementCompanyRepository procurementCompanyRepository;
     private MultiMediaServiceStrategy multiMediaServiceStrategy;
     private AttachmentRepository attachmentRepository;
@@ -34,11 +35,13 @@ public class ProcurementCompanyService {
     public ProcurementCompanyService(CompanyAdapter companyAdapter,
                                      ProcurementCompanyRepository procurementCompanyRepository,
                                      MultiMediaServiceStrategy multiMediaServiceStrategy,
-                                     AttachmentRepository attachmentRepository){
+                                     AttachmentRepository attachmentRepository,
+                                     EmployeeService employeeService){
         this.companyAdapter = companyAdapter;
         this.procurementCompanyRepository = procurementCompanyRepository;
         this.multiMediaServiceStrategy = multiMediaServiceStrategy;
         this.attachmentRepository = attachmentRepository;
+        this.employeeService = employeeService;
     }
 
     public ProcurementCompany registerProcurementCompany(
@@ -72,13 +75,13 @@ public class ProcurementCompanyService {
                .createdBy(SystemConstant.APPLICATION_USER_NAME)
                .createdBy(SystemConstant.APPLICATION_USER_NAME)
                .build();
-       companyLogoAttachment = attachmentRepository.save(companyLogoAttachment);
-
+        companyLogoAttachment = attachmentRepository.save(companyLogoAttachment);
         List<Attachment> attachments = List.of(companyRegAttachment, companyLogoAttachment);
-
         procurementCompany.setAttachments(attachments);
-
         procurementCompanyRepository.save(procurementCompany);
+        // Create super admin user for the company
+
+        employeeService.createSuperAdminForCompany(procurementCompany);
 
         return procurementCompany;
 
