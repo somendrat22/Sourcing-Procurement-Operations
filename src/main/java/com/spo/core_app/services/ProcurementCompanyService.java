@@ -5,6 +5,7 @@ import com.spo.core_app.dtos.request.ProcurementCompanyRegistrationDto;
 import com.spo.core_app.dtos.responses.FileUploadResult;
 import com.spo.core_app.enums.AttachmentType;
 import com.spo.core_app.models.Attachment;
+import com.spo.core_app.models.Employee;
 import com.spo.core_app.models.ProcurementCompany;
 import com.spo.core_app.repostories.AttachmentRepository;
 import com.spo.core_app.repostories.ProcurementCompanyRepository;
@@ -29,6 +30,7 @@ public class ProcurementCompanyService {
     private ProcurementCompanyRepository procurementCompanyRepository;
     private MultiMediaServiceStrategy multiMediaServiceStrategy;
     private AttachmentRepository attachmentRepository;
+    private NotificationService notificationService;
 
 
     @Autowired
@@ -36,12 +38,14 @@ public class ProcurementCompanyService {
                                      ProcurementCompanyRepository procurementCompanyRepository,
                                      MultiMediaServiceStrategy multiMediaServiceStrategy,
                                      AttachmentRepository attachmentRepository,
-                                     EmployeeService employeeService){
+                                     EmployeeService employeeService,
+                                     NotificationService notificationService){
         this.companyAdapter = companyAdapter;
         this.procurementCompanyRepository = procurementCompanyRepository;
         this.multiMediaServiceStrategy = multiMediaServiceStrategy;
         this.attachmentRepository = attachmentRepository;
         this.employeeService = employeeService;
+        this.notificationService = notificationService;
     }
 
     public ProcurementCompany registerProcurementCompany(
@@ -80,9 +84,8 @@ public class ProcurementCompanyService {
         procurementCompany.setAttachments(attachments);
         procurementCompanyRepository.save(procurementCompany);
         // Create super admin user for the company
-
-        employeeService.createSuperAdminForCompany(procurementCompany);
-
+        Employee admin = employeeService.createSuperAdminForCompany(procurementCompany);
+        notificationService.sendProcurementCompanyRegNotification(admin.getEmail(), admin.getFirstName(), procurementCompany.getDisplayName(), "Temp@123");
         return procurementCompany;
 
     }

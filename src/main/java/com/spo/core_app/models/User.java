@@ -22,10 +22,10 @@ public class User extends GlobalRecord {
 
     private String userId;
 
-    @Column(nullable = false)
+
     private String firstName;
 
-    @Column(nullable = false)
+
     private String lastName;
 
     @Column(unique = true, nullable = false)

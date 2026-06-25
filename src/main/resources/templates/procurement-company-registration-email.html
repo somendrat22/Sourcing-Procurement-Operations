@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Confirmation</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f5f7fa;font-family:Arial,Helvetica,sans-serif;">
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f5f7fa;padding:30px 0;">
+    <tr>
+        <td align="center">
+
+            ```
+            <table width="650" cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #e5e8ec;">
+
+                <!-- Header -->
+                <tr>
+                    <td style="background:#1f4e79;padding:24px 32px;">
+                        <h1 style="margin:0;color:#ffffff;font-size:24px;font-weight:600;">
+                            Welcome to Procurement Portal
+                        </h1>
+                    </td>
+                </tr>
+
+                <!-- Body -->
+                <tr>
+                    <td style="padding:32px;color:#2e3b4e;line-height:1.7;font-size:14px;">
+
+                        <p style="margin-top:0;">
+                            Dear <strong>${maintUserName}</strong>,
+                        </p>
+
+                        <p>
+                            Thank you for registering your organization with our Procurement Portal.
+                            We have successfully received your registration request and our onboarding team is currently reviewing the information provided by your organization.
+                        </p>
+
+                        <p>
+                            Once the review process is completed, our team will contact you regarding the next steps and account activation status.
+                        </p>
+
+                        <p>
+                            In the meantime, you may log in to the portal using the credentials below:
+                        </p>
+
+                        <table cellpadding="8" cellspacing="0" border="0" style="background:#f8f9fb;border:1px solid #dfe3e8;border-radius:4px;width:100%;margin:20px 0;">
+                            <tr>
+                                <td width="140"><strong>Email Address</strong></td>
+                                <td>${email}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Password</strong></td>
+                                <td>${temporaryPassword}</td>
+                            </tr>
+                        </table>
+
+                        <p>
+                            <strong>Portal Access:</strong>
+                        </p>
+
+                        <p style="text-align:center;margin:25px 0;">
+                            <a href="${portalUrl}"
+                               style="background:#1f4e79;color:#ffffff;text-decoration:none;padding:12px 28px;border-radius:4px;font-weight:600;display:inline-block;">
+                                Login to Portal
+                            </a>
+                        </p>
+
+                        <p>
+                            For security purposes, we recommend changing your password after your first successful login.
+                        </p>
+
+                        <p>
+                            If you have any questions or require assistance, please contact our support team.
+                        </p>
+
+                        <p>
+                            We appreciate your interest in partnering with us and look forward to working with your organization.
+                        </p>
+
+                        <p style="margin-bottom:0;">
+                            Regards,<br>
+                            <strong>Procurement Operations Team</strong><br>
+                            Procurement Portal
+                        </p>
+
+                    </td>
+                </tr>
+
+                <!-- Footer -->
+                <tr>
+                    <td style="background:#f8f9fb;border-top:1px solid #e5e8ec;padding:20px 32px;color:#6b7280;font-size:12px;text-align:center;">
+                        This is an automated notification. Please do not reply to this email.
+                        <br><br>
+                        © ${currentYear} Procurement Portal. All rights reserved.
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+    ```
+
+</table>
+
+</body>
+</html>
