@@ -10,4 +10,6 @@ public class SystemConstant {
     public static final String ATTACHMENT_ENTITY_NAME = "ATTACHMENT";
     public static final String EMPLOYEE_ENTITY_NAME = "EMPLOYEE";
     public static final String ROLE_ENTITY_NAME = "ROLE";
+    public static final Long JWT_TOKEN_EXPIRATION_TIME = 1_800_000L;
+    public static final String JWT_SECRET_PASSWORD = "bcjevcjevcjevbcvhevcegvhgevchevjvejbudbwcbwjdbwdjxjkwgwgdjwbcjevejcvbejvcevfcvueb";
 }

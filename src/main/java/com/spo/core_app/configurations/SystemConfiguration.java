@@ -8,6 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+
+
+import java.util.Properties;
 
 @Configuration
 public class SystemConfiguration {
@@ -18,9 +22,10 @@ public class SystemConfiguration {
     private String imageKitPrivateKey;
     @Value("${imagekit.endpoint}")
     private String imageKitEndpoint;
+    @Value("${spring.mail.username}")
     private String apiEmailAddress;
-    private String apiPassword;
-    private String tlsInfo;
+    @Value("${spring.mail.password}")
+    private String apiEmailPassword;
 
 
     public io.imagekit.sdk.config.Configuration createImageKitConnectionConfig(){
@@ -46,16 +51,27 @@ public class SystemConfiguration {
     @Bean
     public JavaMailSender createJavaMailSender(){
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+        Properties mailProperties = new Properties();
+        mailProperties.put("mail.smtp.auth", true);
+        mailProperties.put("mail.smtp.starttls.enable", true);
+        javaMailSender.setJavaMailProperties(mailProperties);
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
         javaMailSender.setUsername(apiEmailAddress);
-        javaMailSender
-        return new JavaMailSenderImpl();
+        javaMailSender.setPassword(apiEmailPassword);
+        return javaMailSender;
     }
 
     @Bean
     public TemplateEngine createTemplateEngine(){
-        return new TemplateEngine();
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setPrefix("templates/"); // Make sure this folder exists in resources
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode("HTML");
+        templateResolver.setCharacterEncoding("UTF-8");
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+        return templateEngine;
     }
 
 }

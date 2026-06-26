@@ -1,7 +1,9 @@
 package com.spo.core_app.services;
 
+import com.spo.core_app.constants.MessageConstant;
 import com.spo.core_app.constants.SystemConstant;
 import com.spo.core_app.enums.UserStatus;
+import com.spo.core_app.exceptions.InvalidCredentialsException;
 import com.spo.core_app.models.Company;
 import com.spo.core_app.models.Employee;
 import com.spo.core_app.models.ProcurementCompany;
@@ -34,6 +36,7 @@ public class EmployeeService {
         Employee emp = Employee.builder()
                 .employeeId(SystemUtility.generate(SystemConstant.EMPLOYEE_ENTITY_NAME))
                 .company(company)
+                .password("Temp@123")
                 .status(UserStatus.PENDING_ACTIVATION)
                 .addressLine1(company.getAddressLine1())
                 .addressLine2(company.getAddressLine2())
@@ -46,7 +49,15 @@ public class EmployeeService {
                 .build();
         // SUPER_ADMIN_ROLE
         return employeeRepository.save(emp);
+    }
 
+    public Employee validateEmployeeCredentials(String email,
+                                                String password){
+        Employee employee = employeeRepository.findByEmail(email);
+        if(employee != null && employee.getPassword().equals(password)){
+            return employee;
+        }
+        throw new InvalidCredentialsException(MessageConstant.INVALID_CREDENTIALS_MESSAGE);
     }
 
 

@@ -31,7 +31,7 @@ public class NotificationService {
         Context context = new Context();
         context.setVariable("maintUserName" , userName);
         context.setVariable("email", toEmailAddress);
-        context.setVariable("password", password);
+        context.setVariable("temporaryPassword", password);
         String htmlEmail =  templateEngine.process(EmailConstant.PROCUREMENT_COMPANY_REG_EMAIL_TEMPLATE_NAME, context);
         try{
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
