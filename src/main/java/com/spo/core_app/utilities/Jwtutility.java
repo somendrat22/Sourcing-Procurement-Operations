@@ -67,7 +67,7 @@ public class Jwtutility {
 
 
 
-    public User validateToken(String token){
+    public Employee validateToken(String token){
         // decrypt token -> Email & List<String> roles
         String subject = this.extractSubjectFromJwt(token);
         return employeeService.getEmployeeByEmail(subject);

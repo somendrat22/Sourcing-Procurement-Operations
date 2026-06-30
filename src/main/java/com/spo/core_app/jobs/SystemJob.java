@@ -70,6 +70,7 @@ public class SystemJob {
                 Operation.builder().id("OPR-76").operationName("SUPPLIER_PORTAL_ACCESS").operationCategory("SUPPLIER_MANAGEMENT").build(),
                 Operation.builder().id("OPR-77").operationName("PROCUREMENT_AUTOMATION_RPA").operationCategory("TECHNOLOGY").build(),
                 Operation.builder().id("OPR-78").operationName("REPORT_VIEW").operationCategory("ANALYTICS").build(),
+                Operation.builder().id("OPR-79").operationName("CREATE_ROLE").operationCategory("SYSTEM").build(),
                 Operation.builder().id("OPR-79").operationName("INVITE_USER").operationCategory("SYSTEM").build()
         );
     }

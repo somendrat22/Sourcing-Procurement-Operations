@@ -2,6 +2,7 @@ package com.spo.core_app.services;
 
 import com.spo.core_app.constants.MessageConstant;
 import com.spo.core_app.constants.SystemConstant;
+import com.spo.core_app.dtos.request.InviteEmployeeRequest;
 import com.spo.core_app.enums.UserStatus;
 import com.spo.core_app.exceptions.InvalidCredentialsException;
 import com.spo.core_app.models.Company;
@@ -62,6 +63,30 @@ public class EmployeeService {
 
     public Employee getEmployeeByEmail(String email){
         return this.employeeRepository.findByEmail(email);
+    }
+
+    public Employee inviteEmployee(
+            InviteEmployeeRequest inviteEmployeeRequest,
+            Employee invitor
+    ){
+        Employee manager =  employeeRepository.findById(inviteEmployeeRequest.getManagerSysId()).orElse(null);
+        List<Role> roles = roleService.fetchRolesById(inviteEmployeeRequest.getRoles());
+        Employee invitee = Employee.builder()
+                .manager(manager)
+                .addressLine1(inviteEmployeeRequest.getAddressLine1())
+                .addressLine2(inviteEmployeeRequest.getAddressLine2())
+                .addressLine3(inviteEmployeeRequest.getAddressLine3())
+                .businessUnit(inviteEmployeeRequest.getBusinessUnit())
+                .company(invitor.getCompany())
+                .employeeId(inviteEmployeeRequest.getEmployeeId())
+                .roles(roles)
+                .build();
+
+        // We need to call notification service ->
+
+        employeeRepository.save(invitee);
+
+        return invitee;
     }
 
 
