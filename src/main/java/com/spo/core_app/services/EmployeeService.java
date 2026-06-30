@@ -60,5 +60,9 @@ public class EmployeeService {
         throw new InvalidCredentialsException(MessageConstant.INVALID_CREDENTIALS_MESSAGE);
     }
 
+    public Employee getEmployeeByEmail(String email){
+        return this.employeeRepository.findByEmail(email);
+    }
+
 
 }

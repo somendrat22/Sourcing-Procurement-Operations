@@ -3,8 +3,12 @@ package com.spo.core_app.utilities;
 import com.spo.core_app.constants.SystemConstant;
 import com.spo.core_app.models.Employee;
 import com.spo.core_app.models.Role;
+import com.spo.core_app.models.User;
+import com.spo.core_app.services.EmployeeService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -14,6 +18,13 @@ import java.util.List;
 
 @Service
 public class Jwtutility {
+
+    private EmployeeService employeeService;
+
+    @Autowired
+    public Jwtutility(EmployeeService employeeService){
+        this.employeeService = employeeService;
+    }
 
 
 
@@ -38,6 +49,28 @@ public class Jwtutility {
                 .signWith(key)
                 .compact();
 
+    }
+
+    public Claims extractAllClaims(String token){
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public String extractSubjectFromJwt(String token){
+        Claims claims = this.extractAllClaims(token);
+        return claims.getSubject();
+    }
+
+
+
+
+    public User validateToken(String token){
+        // decrypt token -> Email & List<String> roles
+        String subject = this.extractSubjectFromJwt(token);
+        return employeeService.getEmployeeByEmail(subject);
     }
 
 
